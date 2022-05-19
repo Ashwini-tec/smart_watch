@@ -4,6 +4,8 @@ const controller = require("../controllers/CRUDController");
 // const validationMiddleware = require("../../config/schemaValidation");
 // const validateParams = require("../../middleware/thresholdConstantSchema");
 const Permission = require("../model/permission");
+const { PERMS } = require("../../lib/bootstrap");
+const authenticate = require("../../utils/auth");
 
 /********** create ******** */
 // router.post(
@@ -15,12 +17,16 @@ const Permission = require("../model/permission");
 /********** get all  ******** */
 router.get(
     "/permission",
+    authenticate.verifyUser,
+    authenticate.permissionAuth(PERMS.FETCH),
     controller(Permission).getAll
 );
 
 /************ get by id ******** */
 router.get(
     "/permission/:id",
+    authenticate.verifyUser,
+    authenticate.permissionAuth(PERMS.FETCH),
     controller(Permission).getById
 );
 

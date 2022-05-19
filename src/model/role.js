@@ -6,6 +6,10 @@ const roleSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    organization: {
+        type: String,
+        required: true,
+    },
     isActive:{
         type: Boolean,
         default: true,
