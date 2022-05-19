@@ -21,10 +21,13 @@ const create = (model) => async(req, res)=>{
 /********************* get all  **************** */
 const getAll = (model) => async(req, res)=>{
     try {
-        let query = {};
+        let query = {
+            organization: res.local.organization,
+        };
         const result =  await model.find(query)
             .populate("role",["name"])
-            .populate("permission.name",["name"]);
+            .populate("permission.name",["name"])
+            .populate("organization", ["name"]);
         return res.status(200).json({ data: result });
     } catch (error) {
         return res.status(500).send({ data: error.message });
@@ -40,7 +43,8 @@ const get = (model) => async(req, res)=>{
         };
         const result =  await model.findOne(query)
             .populate("role",["name"])
-            .populate("permission.name",["name"]);
+            .populate("permission.name",["name"])
+            .populate("organization",["name"]);
         if(!result){
             return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
         }

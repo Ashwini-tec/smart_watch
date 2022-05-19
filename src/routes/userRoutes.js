@@ -11,6 +11,8 @@ const { PERMS } = require("../../lib/bootstrap");
 /********** create ******** */
 router.post(
     "/user",
+    authenticate.verifyUser,
+    authenticate.permissionAuth(PERMS.CREATE),
     validationMiddleware(validateParams.create()),
     userController(User).create
 );
@@ -22,16 +24,20 @@ router.get(
     authenticate.permissionAuth(PERMS.FETCH),
     userController(User).getAll
 );
-// seraph.middleware(perms.ROLE_WRITE),
+
 /************ get by id ******** */
 router.get(
     "/user/:id",
+    authenticate.verifyUser,
+    authenticate.permissionAuth(PERMS.FETCH),
     userController(User).get
 );
 
 /************ update by id ******** */
 router.put(
     "/user/:id",
+    authenticate.verifyUser,
+    authenticate.permissionAuth(PERMS.UPDATE),
     validationMiddleware(validateParams.update()),
     userController(User).update
 );

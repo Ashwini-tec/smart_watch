@@ -22,7 +22,8 @@ const login = async(req, res) => {
     const userData = {
         role: user.role.name,
         email: user.email,
-        permissions: permissions
+        permissions: permissions,
+        organization: user.organization,
     };
     res.status(200).send({ Message: MESSAGE.LOGIN_MESSAGE, data: user, token: generateToken(userData) });
 };
