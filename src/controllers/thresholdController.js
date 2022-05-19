@@ -1,0 +1,70 @@
+const { MESSAGE } = require("../../utils/constant");
+
+/********************* create  **************** */
+const create = (model) => async(req, res)=>{
+    try {
+        let result;
+        const data = await model.find();
+        if(data.length > 0){
+            result = await model.findOneAndUpdate({ _id: data[0]._id }, req.body, { new: true });
+        }else{
+            result = await model.create(req.body);
+        }
+        return res.status(200).json({ data: result, });
+    } catch (error) {
+        return res.status(500).send({ data: error.message });
+    }
+};
+
+/********************* get by id **************** */
+const get = (model) => async(req, res)=>{
+    try {
+        let query = {
+            _id: req.params.id,
+        };
+        const result =  await model.findOne(query);
+        if(!result){
+            return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
+        }
+        return res.status(200).json({ data: result });
+    } catch (error) {
+        return res.status(500).send({ data: error.message });
+    }
+};
+
+/********************* get all  **************** */
+const getAll = (model) => async(req, res)=>{
+    try {
+        let query = {};
+        const result =  await model.findOne(query);
+        return res.status(200).json({ data: result });
+    } catch (error) {
+        return res.status(500).send({ data: error.message });
+    }
+};
+
+
+/********************* update  **************** */
+const update = (model) => async(req, res)=>{
+    try {
+        let query = {
+            _id: req.params.id
+        };
+        const result =  await model.findOne(query);
+        if(!result){
+            return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
+        }
+        const data = await model.findOneAndUpdate({ _id: req.params.id }, req.body, { new : true });
+        return res.status(200).json({ data: data });
+    } catch (error) {
+        return res.status(500).send({ data: error.message });
+    }
+};
+
+
+module.exports = ( model ) => ({
+    create: create(model),
+    getById: get(model),
+    getAll: getAll(model),
+    update: update(model),
+});

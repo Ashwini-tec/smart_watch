@@ -1,0 +1,525 @@
+openapi: 3.0.0
+info:
+  title: Smart Watch Backend Apis
+  description: API for Smart Watch Backend
+  version: 1.0.0
+
+servers:
+  - url: "http://localhost:4090/api/"
+  - url: "http://167.172.220.75:4090/api"
+
+security:
+    - authorization: []
+
+tags:
+  - name: Thermometer
+    description: Endpoints to create and get thermometer related data
+  - name: Threshold_Constant
+    description: Endpoints to create and get threshold/channels related data
+  - name: User
+    description: Endpoints to create and get threshold/channels user related data
+  - name: Login
+    description: Endpoints to login into system
+  - name: Role
+    description: Endpoints to create and get role related data
+  - name: Permission
+    description: Endpoints to create and get permission related data
+  - name: Organization
+    description: Endpoints to create and get role related data
+
+paths:
+  /temperature:
+    post:
+      tags:
+        - Thermometer
+      summary: Create a data for thermometer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/thermometer"
+      responses:
+        200:
+          description: OK
+
+    get:
+      tags:
+        - Thermometer
+      summary: get all data for thermometer
+      parameters:
+        - in: query
+          name: createdDate
+          schema:
+            type: integer
+          description: timestamp value for date
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          description: boolean value
+      responses:
+        200:
+          description: OK
+
+  /temperature/{:thermometerId}:
+    get:
+      tags:
+        - Thermometer
+      summary: getbyid data for thermometer
+      parameters:
+        - in: path
+          name: :thermometerId
+          required: true
+        - in: query
+          name: createdDate
+          schema:
+            type: integer
+          description: timestamp value for date
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          description: boolean value
+      responses:
+        200:
+          description: OK
+
+  /thresholdConstant:
+    post:
+      tags:
+        - Threshold_Constant
+      summary: Create a data for threshold constant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/threshold"
+      responses:
+        200:
+          description: OK
+
+    get:
+      tags:
+        - Threshold_Constant
+      summary: get all data for threshold values
+      responses:
+        200:
+          description: OK
+
+  /thresholdConstant/{:id}:
+    get:
+      tags:
+        - Threshold_Constant
+      summary: get by id data for threshold values
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+    put:
+      tags:
+        - Threshold_Constant
+      summary: update data for threshold values
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/threshold"
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+  /user:
+    post:
+      tags:
+        - User
+      summary: Create a data for user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        200:
+          description: OK
+
+    get:
+      tags:
+        - User
+      summary: get all data for user
+      responses:
+        200:
+          description: OK
+
+  /user/{:id}:
+    get:
+      tags:
+        - User
+      summary: get by id data for user
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+    put:
+      tags:
+        - User
+      summary: update data for user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userUpdate"
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+  /user/resetPassword/{:uniqueId}:
+    post:
+      tags:
+        - User
+      summary: update password for user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/resetPassword"
+      parameters:
+        - in: path
+          name: :uniqueId
+          required: true
+      responses:
+        200:
+          description: OK
+
+  /user/forgotPassword:
+    post:
+      tags:
+        - User
+      summary: generate forgot password for user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/forgotPassword"
+      responses:
+        200:
+          description: OK
+
+  /login:
+    post:
+      tags:
+        - Login
+      summary: Login into system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/login"
+      responses:
+        200:
+          description: OK
+
+  /organization:
+    post:
+      tags:
+        - Organization
+      summary: Create a data for organization constant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/organization"
+      responses:
+        200:
+          description: OK
+
+    get:
+      tags:
+        - Organization
+      summary: get all data for organization
+      responses:
+        200:
+          description: OK
+
+  /organization/{:id}:
+    get:
+      tags:
+        - Organization
+      summary: get by id data for organization
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+    put:
+      tags:
+        - Organization
+      summary: update data for organization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/organization"
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+  /role:
+    post:
+      tags:
+        - Role
+      summary: Create a data for role data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/role"
+      responses:
+        200:
+          description: OK
+
+    get:
+      tags:
+        - Role
+      summary: get all data for role
+      responses:
+        200:
+          description: OK
+
+  /role/{:id}:
+    get:
+      tags:
+        - Role
+      summary: get by id data for role
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+    put:
+      tags:
+        - Role
+      summary: update data for role
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/role"
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+  /permission/{:id}:
+    get:
+      tags:
+        - Permission
+      summary: get by id data for permission
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+  /permission:
+    get:
+      tags:
+        - Permission
+      summary: get all data for permission
+      responses:
+        200:
+          description: OK
+
+components:
+  securitySchemes:
+    authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: jwt
+  schemas:
+    thermometer:
+      type: object
+      required:
+        - thermometerId
+        - temperature
+      properties:
+        thermometerId:
+          type: string
+        temperature:
+          type: array
+          items:
+            type: object
+            properties:
+              channel_1:
+                type: number
+
+
+    threshold:
+      type: object
+      required:
+        - Channel_1
+      properties:
+        channel_1:
+          type: number
+        channel_2:
+          type: number
+        channel_3:
+          type: number
+        channel_4:
+          type: number
+        channel_5:
+          type: number
+        channel_6:
+          type: number
+        channel_7:
+          type: number
+        channel_8:
+          type: number
+
+    user:
+      type: object
+      required:
+        - firstName
+        - email
+        - password
+        - address
+        - role
+      properties:
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+        address:
+          type: string
+        mobile:
+          type: string
+        permission:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+
+    userUpdate:
+      type: object
+      required:
+        - firstName
+        - password
+        - address
+        - role
+      properties:
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        role:
+          type: string
+        address:
+          type: string
+        mobile:
+          type: string
+        permission:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+
+    forgotPassword:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+
+    resetPassword:
+      type: object
+      required:
+        - password
+      properties:
+        password:
+          type: string
+
+    login:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
+    organization:
+      type: object
+      required:
+        - name
+        - email
+        - address
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+        mobile:
+          type: string
+        image:
+          type: string
+        bannerImage:
+          type: string
+        discription:
+          type: string
+
+    role:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
