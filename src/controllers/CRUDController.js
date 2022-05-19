@@ -34,7 +34,7 @@ const getAll = (model) => async(req, res)=>{
     try {
         let query = {
         };
-        const result =  await model.find(query).populate("organization",["name"]);
+        const result =  await model.find(query);
         return res.status(200).json({ data: result });
     } catch (error) {
         return res.status(500).send({ data: error.message });

@@ -2,14 +2,28 @@ const { MESSAGE } = require("../../utils/constant");
 const bcrypt = require("bcrypt");
 const mailer = require("../../utils/email");
 const referralCodeGenerator = require("referral-code-generator");
+const Organization = require("../model/organization");
 
 /********************* create  **************** */
 const create = (model) => async(req, res)=>{
     try {
+        const originalPassword = req.body.password;
         req.body.password = bcrypt.hashSync(req.body.password, 10);
         const user = await model.findOne({ email: req.body.email });
         if(user){
             return res.status(400).send({ data: MESSAGE.USER_ALREADY_EXIST });
+        }
+        const organization = await Organization.findOne({_id: req.body.organization });
+        if(!organization){
+            return res.status(404).send({ data: MESSAGE.ORGANIZATION_NOT_FOUND });
+        }
+        let mail = await mailer.welcomeMail(req.body.email, {
+            organization: organization.name,
+            email: req.body.email,
+            password: originalPassword,
+        });
+        if(!mail.sent){
+            return res.status(200).send({ Message: mail.message });
         }
         const result = await model.create(req.body);
         return res.status(200).json({ data: result });

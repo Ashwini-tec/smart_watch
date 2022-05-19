@@ -12,6 +12,7 @@ const MESSAGE = {
     FORGOT_PASSWORD: "Request For Password Reset Is Generated",
     UN_AUTHENTICATED_USER: "Un-authenticated User",
     PERMISSION_NOT_PRESENT: "You are not allowed to perform this task",
+    ORGANIZATION_NOT_FOUND: "Organization not found",
 };
 
 module.exports = { MESSAGE };
