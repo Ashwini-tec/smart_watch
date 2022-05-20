@@ -8,7 +8,6 @@ const roleSchema = new mongoose.Schema({
     },
     organization: {
         type: String,
-        required: true,
     },
     isActive:{
         type: Boolean,

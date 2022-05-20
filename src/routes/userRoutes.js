@@ -12,7 +12,7 @@ const { PERMS } = require("../../lib/bootstrap");
 router.post(
     "/user",
     authenticate.verifyUser,
-    authenticate.permissionAuth(PERMS.CREATE),
+    authenticate.permissionAuth(PERMS.CREATE_USER),
     validationMiddleware(validateParams.create()),
     userController(User).create
 );
@@ -21,7 +21,7 @@ router.post(
 router.get(
     "/user",
     authenticate.verifyUser,
-    authenticate.permissionAuth(PERMS.FETCH),
+    authenticate.permissionAuth(PERMS.FETCH_USER),
     userController(User).getAll
 );
 
@@ -29,7 +29,7 @@ router.get(
 router.get(
     "/user/:id",
     authenticate.verifyUser,
-    authenticate.permissionAuth(PERMS.FETCH),
+    authenticate.permissionAuth(PERMS.FETCH_USER),
     userController(User).get
 );
 
@@ -37,7 +37,7 @@ router.get(
 router.put(
     "/user/:id",
     authenticate.verifyUser,
-    authenticate.permissionAuth(PERMS.UPDATE),
+    authenticate.permissionAuth(PERMS.UPDATE_USER),
     validationMiddleware(validateParams.update()),
     userController(User).update
 );

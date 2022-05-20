@@ -7,18 +7,11 @@ const Permission = require("../model/permission");
 const { PERMS } = require("../../lib/bootstrap");
 const authenticate = require("../../utils/auth");
 
-/********** create ******** */
-// router.post(
-//     "/permission",
-//     // validationMiddleware(validateParams.register()),
-//     controller(Permission).create
-// );
-
 /********** get all  ******** */
 router.get(
     "/permission",
     authenticate.verifyUser,
-    authenticate.permissionAuth(PERMS.FETCH),
+    authenticate.permissionAuth(PERMS.FETCH_PERMISSION),
     controller(Permission).getAll
 );
 
@@ -26,15 +19,8 @@ router.get(
 router.get(
     "/permission/:id",
     authenticate.verifyUser,
-    authenticate.permissionAuth(PERMS.FETCH),
+    authenticate.permissionAuth(PERMS.FETCH_PERMISSION),
     controller(Permission).getById
 );
-
-// /************ update by id ******** */
-// router.put(
-//     "/permission/:id",
-//     // validationMiddleware(validateParams.update()),
-//     controller(Permission).update
-// );
 
 module.exports = router;

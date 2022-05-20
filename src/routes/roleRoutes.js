@@ -12,7 +12,7 @@ const authenticate = require("../../utils/auth");
 router.post(
     "/role",
     authenticate.verifyUser,
-    authenticate.permissionAuth(PERMS.CREATE),
+    authenticate.permissionAuth(PERMS.CREATE_ROLE),
     validationMiddleware(validateParams.create()),
     controller(Role).create
 );
@@ -21,7 +21,7 @@ router.post(
 router.get(
     "/role",
     authenticate.verifyUser,
-    authenticate.permissionAuth(PERMS.FETCH),
+    authenticate.permissionAuth(PERMS.FETCH_ROLE),
     roleController(Role).getAll
 );
 
@@ -29,7 +29,7 @@ router.get(
 router.get(
     "/role/:id",
     authenticate.verifyUser,
-    authenticate.permissionAuth(PERMS.FETCH),
+    authenticate.permissionAuth(PERMS.FETCH_ROLE),
     controller(Role).getById
 );
 
@@ -37,7 +37,7 @@ router.get(
 router.put(
     "/role/:id",
     authenticate.verifyUser,
-    authenticate.permissionAuth(PERMS.UPDATE),
+    authenticate.permissionAuth(PERMS.UPDATE_ROLE),
     validationMiddleware(validateParams.update()),
     controller(Role).update
 );

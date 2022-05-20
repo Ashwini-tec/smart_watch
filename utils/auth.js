@@ -29,7 +29,7 @@ const verifyUser = async (req, res, next) => {
 const permissionAuth = (permission) => async (req, res, next) => {
     try {
         const userPermission = res.local;
-        const result = userPermission?.permissions.includes(permission);
+        const result = userPermission?.permissions?.includes(permission);
         if (!result) {
             return res.status(404).send({ status: 404, data: MESSAGE.PERMISSION_NOT_PRESENT });
         }
