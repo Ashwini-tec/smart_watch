@@ -12,7 +12,7 @@ security:
     - authorization: []
 
 tags:
-  - name: Thermometer
+  - name: ThermometerData
     description: Endpoints to create and get thermometer related data
   - name: Threshold_Constant
     description: Endpoints to create and get threshold/channels related data
@@ -26,12 +26,16 @@ tags:
     description: Endpoints to create and get permission related data
   - name: Organization
     description: Endpoints to create and get role related data
+  - name: Thermometer
+    description: Endpoints to register and get thermometer data
+  - name: Procedure
+    description: Endpoints to create and get procedure related data
 
 paths:
   /temperature:
     post:
       tags:
-        - Thermometer
+        - ThermometerData
       summary: Create a data for thermometer
       requestBody:
         content:
@@ -44,7 +48,7 @@ paths:
 
     get:
       tags:
-        - Thermometer
+        - ThermometerData
       summary: get all data for thermometer
       parameters:
         - in: query
@@ -64,7 +68,7 @@ paths:
   /temperature/{:thermometerId}:
     get:
       tags:
-        - Thermometer
+        - ThermometerData
       summary: getbyid data for thermometer
       parameters:
         - in: path
@@ -429,6 +433,58 @@ paths:
         200:
           description: OK
 
+  /thermometerRegister:
+    post:
+      tags:
+        - Thermometer
+      summary: Create a data for thermometer data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/thermometerRegister"
+      responses:
+        200:
+          description: OK
+
+    get:
+      tags:
+        - Thermometer
+      summary: get all data for thermometer
+      responses:
+        200:
+          description: OK
+
+  /thermometerRegister/{:id}:
+    get:
+      tags:
+        - Thermometer
+      summary: get by id data for thermometer
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+    put:
+      tags:
+        - Thermometer
+      summary: update data for thermometer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/thermometerRegister"
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
 components:
   securitySchemes:
     authorization:
@@ -611,3 +667,11 @@ components:
             properties:
               name:
                 type: string
+
+    thermometerRegister:
+      type: object
+      required:
+        - thermometerId
+      properties:
+        thermometerId:
+          type: string

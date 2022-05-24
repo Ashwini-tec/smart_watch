@@ -8,6 +8,7 @@ const organizationRoutes = require("./src/routes/organizationRoutes");
 const permissionRoutes = require("./src/routes/permissionRoutes");
 const loginRoutes = require("./src/routes/loginRoutes");
 const procedureRoutes = require("./src/routes/procedureRoutes");
+const thermometerRegisterRoutes = require("./src/routes/thermometerRegisterRoutes");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
 const app = express();
@@ -46,6 +47,7 @@ app.use("/api", permissionRoutes);
 app.use("/api", organizationRoutes);
 app.use("/api", loginRoutes);
 app.use("/api", procedureRoutes);
+app.use("/api", thermometerRegisterRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port,()=> { console.log(`server is running on port ${port} ....` );});
