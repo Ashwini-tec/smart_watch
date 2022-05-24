@@ -17,13 +17,22 @@ const organizationSchema = new mongoose.Schema({
     address: {
         type: String,
     },
-    image:{
+    city:{
         type: String,
     },
-    discription:{
+    state:{
         type: String,
     },
-    bannerImage: {
+    PCPNDTResistrationNumber:{
+        type: String,
+    },
+    ARTRegistryNumber: {
+        type: String,
+    },
+    LeadDoctorName: {
+        type: String,
+    },
+    logo: {
         type: String,
     },
     isActive:{

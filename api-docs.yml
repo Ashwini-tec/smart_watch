@@ -682,6 +682,13 @@ components:
         - name
         - email
         - address
+        - mobile
+        - city
+        - state
+        - PCPNDTResistrationNumber
+        - ARTRegistryNumber
+        - LeadDoctorName
+        - logo
       properties:
         name:
           type: string
@@ -691,12 +698,19 @@ components:
           type: string
         mobile:
           type: string
-        image:
+        logo:
           type: string
-        bannerImage:
+        city:
           type: string
-        discription:
+        state:
           type: string
+        PCPNDTResistrationNumber:
+          type: string
+        ARTRegistryNumber:
+          type: string
+        LeadDoctorName:
+          type: string
+
 
     role:
       type: object

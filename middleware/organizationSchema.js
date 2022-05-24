@@ -7,21 +7,27 @@ module.exports = {
             mobile: Joi.string(),
             address: Joi.string().required(),
             email: Joi.string().email().required(),
-            image: Joi.string(),
-            bannerImage: Joi.string(),
-            discription: Joi.string(),
+            city: Joi.string().required(),
+            state: Joi.string().required(),
+            PCPNDTResistrationNumber: Joi.string().required(),
+            ARTRegistryNumber: Joi.string().required(),
+            LeadDoctorName: Joi.string().required(),
+            logo: Joi.string().required(),
         });
     },
 
     update: () =>{
         return Joi.object({
-            name: Joi.string(),
+            name: Joi.string().required(),
             mobile: Joi.string(),
-            address: Joi.string(),
-            email: Joi.string().email(),
-            image: Joi.string(),
-            bannerImage: Joi.string(),
-            discription: Joi.string(),
+            address: Joi.string().required(),
+            email: Joi.string().email().required(),
+            city: Joi.string().required(),
+            state: Joi.string().required(),
+            PCPNDTResistrationNumber: Joi.string().required(),
+            ARTRegistryNumber: Joi.string().required(),
+            LeadDoctorName: Joi.string().required(),
+            logo: Joi.string().required(),
         });
     },
 };

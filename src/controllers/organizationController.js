@@ -15,7 +15,7 @@ const create = (model) => async(req, res)=>{
         }
         req.body.procedures = procedures;
         const result = await model.create(req.body);
-        return res.status(200).json({ data: result, });
+        return res.status(200).json({ data: result });
     } catch (error) {
         return res.status(500).send({ data: error.message });
     }
