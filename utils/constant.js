@@ -13,6 +13,7 @@ const MESSAGE = {
     UN_AUTHENTICATED_USER: "Un-authenticated User",
     PERMISSION_NOT_PRESENT: "You are not allowed to perform this task",
     ORGANIZATION_NOT_FOUND: "Organization not found",
+    POCEDURE_NOT_DECLARED: "Procedure not declared at root level"
 };
 
 module.exports = { MESSAGE };

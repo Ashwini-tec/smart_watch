@@ -30,6 +30,9 @@ const organizationSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
     },
+    procedures: {
+        type: Array,
+    },
 
 }, { timestamps: true });
 

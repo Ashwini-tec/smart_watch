@@ -7,7 +7,8 @@ const roleSchema = new mongoose.Schema({
         required: true,
     },
     organization: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "organization",
     },
     isActive:{
         type: Boolean,

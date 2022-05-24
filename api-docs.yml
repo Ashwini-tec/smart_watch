@@ -360,6 +360,75 @@ paths:
         200:
           description: OK
 
+  /procedure:
+    post:
+      tags:
+        - Procedure
+      summary: Create a data for procedures
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/procedure"
+      responses:
+        200:
+          description: OK
+
+    get:
+      tags:
+        - Procedure
+      summary: get all data for procedure
+      responses:
+        200:
+          description: OK
+
+  /procedure/{:id}:
+    get:
+      tags:
+        - Procedure
+      summary: get by id data for procedure
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+    put:
+      tags:
+        - Procedure
+      summary: update data for procedure
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/procedure"
+      parameters:
+        - in: path
+          name: :id
+          required: true
+        - in: query
+          name: updateAll
+          schema:
+            type: boolean
+          description: "to update all the organizations procedures"
+      responses:
+        200:
+          description: OK
+
+    delete:
+      tags:
+        - Procedure
+      summary: delete data for procedure
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
 components:
   securitySchemes:
     authorization:
@@ -526,3 +595,19 @@ components:
       properties:
         name:
           type: string
+
+    procedure:
+      type: object
+      required:
+        - name
+        - steps
+      properties:
+        name:
+          type: string
+        steps:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string

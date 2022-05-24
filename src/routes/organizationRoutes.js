@@ -1,6 +1,7 @@
 const router = require("express").Router();
 require("dotenv").config();
 const controller = require("../controllers/CRUDController");
+const orgController = require("../controllers/organizationController");
 const validationMiddleware = require("../../config/schemaValidation");
 const validateParams = require("../../middleware/organizationSchema");
 const Organization = require("../model/organization");
@@ -13,7 +14,7 @@ router.post(
     authenticate.verifyUser,
     authenticate.permissionAuth(PERMS.CREATE_ORGANIZATION),
     validationMiddleware(validateParams.create()),
-    controller(Organization).create
+    orgController(Organization).create
 );
 
 /********** get all  ******** */
