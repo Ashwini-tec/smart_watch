@@ -8,6 +8,7 @@ const organizationRoutes = require("./src/routes/organizationRoutes");
 const permissionRoutes = require("./src/routes/permissionRoutes");
 const loginRoutes = require("./src/routes/loginRoutes");
 const procedureRoutes = require("./src/routes/procedureRoutes");
+const patientRoutes = require("./src/routes/patientRoutes");
 const thermometerRegisterRoutes = require("./src/routes/thermometerRegisterRoutes");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
@@ -48,6 +49,7 @@ app.use("/api", organizationRoutes);
 app.use("/api", loginRoutes);
 app.use("/api", procedureRoutes);
 app.use("/api", thermometerRegisterRoutes);
+app.use("/api", patientRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port,()=> { console.log(`server is running on port ${port} ....` );});

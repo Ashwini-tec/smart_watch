@@ -30,6 +30,8 @@ tags:
     description: Endpoints to register and get thermometer data
   - name: Procedure
     description: Endpoints to create and get procedure related data
+  - name: Patient
+    description: Endpoints to create and get patient related data
 
 paths:
   /temperature:
@@ -485,6 +487,58 @@ paths:
         200:
           description: OK
 
+  /patient:
+    post:
+      tags:
+        - Patient
+      summary: Create a data for patient data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/patient"
+      responses:
+        200:
+          description: OK
+
+    get:
+      tags:
+        - Patient
+      summary: get all data for patient
+      responses:
+        200:
+          description: OK
+
+  /patient/{:id}:
+    get:
+      tags:
+        - Patient
+      summary: get by id data for patient
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+    put:
+      tags:
+        - Patient
+      summary: update data for patient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/patient"
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
 components:
   securitySchemes:
     authorization:
@@ -674,4 +728,24 @@ components:
         - thermometerId
       properties:
         thermometerId:
+          type: string
+
+    patient:
+      type: object
+      required:
+        - firstName
+        - address
+        - email
+      properties:
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        address:
+          type: string
+        mobile:
+          type: string
+        email:
           type: string
