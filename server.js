@@ -10,6 +10,7 @@ const loginRoutes = require("./src/routes/loginRoutes");
 const procedureRoutes = require("./src/routes/procedureRoutes");
 const patientRoutes = require("./src/routes/patientRoutes");
 const thermometerRegisterRoutes = require("./src/routes/thermometerRegisterRoutes");
+const patientAssigneRoutes = require("./src/routes/patientAssigneRoutes");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
 const app = express();
@@ -50,6 +51,7 @@ app.use("/api", loginRoutes);
 app.use("/api", procedureRoutes);
 app.use("/api", thermometerRegisterRoutes);
 app.use("/api", patientRoutes);
+app.use("/api", patientAssigneRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port,()=> { console.log(`server is running on port ${port} ....` );});

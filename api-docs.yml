@@ -539,6 +539,85 @@ paths:
         200:
           description: OK
 
+
+  /patientAssignee:
+    post:
+      tags:
+        - Patient_Assignee
+      summary: Create a data for patientAssignee data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/patientAssigne"
+      responses:
+        200:
+          description: OK
+
+    get:
+      tags:
+        - Patient_Assignee
+      summary: get all data for patientAssignee
+      parameters:
+        - in: query
+          name: assignedToMe
+          schema:
+            type: boolean
+      responses:
+        200:
+          description: OK
+
+  /patientAssignee/{:id}:
+    get:
+      tags:
+        - Patient_Assignee
+      summary: get by id data for patientAssignee
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+    put:
+      tags:
+        - Patient_Assignee
+      summary: update data for patientAssignee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/patientAssigneUpdate"
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
+  /patientAssignee/procedure/{:id}/{:idx}:
+    put:
+      tags:
+        - Patient_Assignee
+      summary: update procedure steps status for patientAssignee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/procedureSteps"
+      parameters:
+        - in: path
+          name: :id
+          required: true
+        - in: path
+          name: :idx
+          required: true
+      responses:
+        200:
+          description: OK
+
 components:
   securitySchemes:
     authorization:
@@ -762,4 +841,37 @@ components:
         mobile:
           type: string
         email:
+          type: string
+
+    patientAssigne:
+      type: object
+      required:
+        - assignedTo
+        - patient
+        - procedure
+      properties:
+        assignedTo:
+          type: string
+        patient:
+          type: string
+        procedure:
+          type: string
+
+    procedureSteps:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: boolean
+
+    patientAssigneUpdate:
+      type: object
+      required:
+        - assignedTo
+        - patient
+      properties:
+        assignedTo:
+          type: string
+        patient:
           type: string

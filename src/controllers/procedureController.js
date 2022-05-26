@@ -6,7 +6,7 @@ const create = (model) => async(req, res)=>{
     try {
         let orgId;
         if(res.local.role === "SUPER_ADMIN"){
-            orgId = "";
+            orgId = undefined;
         }else{
             orgId = res.local.organization;
         }

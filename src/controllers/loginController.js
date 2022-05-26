@@ -20,6 +20,7 @@ const login = async(req, res) => {
     user.password = undefined;
     const permissions = user.permission.map( i => i = i.name.name);
     const userData = {
+        id: user._id,
         role: user.role.name,
         email: user.email,
         permissions: permissions,
