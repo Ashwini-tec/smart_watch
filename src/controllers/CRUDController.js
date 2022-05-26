@@ -18,8 +18,7 @@ const get = (model) => async(req, res)=>{
         let query = {
             _id: req.params.id,
         };
-        const result =  await model.findOne(query)
-            .populate("organization",["name"]);
+        const result =  await model.findOne(query);
         if(!result){
             return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
         }
