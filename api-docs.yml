@@ -826,22 +826,36 @@ components:
     patient:
       type: object
       required:
-        - firstName
-        - address
-        - email
+        - name
+        - DOB
+        - bloodGroup
+        - gender
+        - picture
+        - identifyProof
+        - citizenship
+        - type
       properties:
-        firstName:
+        name:
           type: string
-        middleName:
+        DOB:
           type: string
-        lastName:
+        bloodGroup:
           type: string
-        address:
+        gender:
           type: string
-        mobile:
+        picture:
           type: string
-        email:
+        identifyProof:
           type: string
+        citizenship:
+          type: string
+        patientType:
+          type: string
+        cycleType:
+          type: string
+        type:
+          type: string
+
 
     patientAssigne:
       type: object

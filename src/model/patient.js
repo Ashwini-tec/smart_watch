@@ -2,35 +2,47 @@ const mongoose = require("mongoose");
 
 const patientSchema = new mongoose.Schema({
 
-    firstName: {
-        type: String,
-        required: true,
-    },
-    middleName: {
+    name: {
         type: String,
     },
-    lastName: {
+    DOB:{
         type: String,
     },
-    email: {
+    bloodGroup: {
         type: String,
-        required: true,
     },
-    mobile:{
+    gender: {
         type: String,
-        required: true,
+        enum: [ "male", "female", "other" ],
     },
-    address: {
+    picture: {
         type: String,
-        required: true,
     },
-    isActive:{
-        type: Boolean,
-        default: true,
+    identifyProof: {
+        type: String,
+    },
+    citizenship: {
+        type: String,
+    },
+    patientType: {
+        type: String,
+        enum: [ "patient", "surrogate", "donor" ],
+    },
+    cycleType: {
+        type: String,
+        enum: [ "self-IVF", "egg-donor", "surrogate", "IUI" ]
+    },
+    type: {
+        type: String,
+        enum: [ "P1", "P2"],
     },
     organization: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "organization",
+    },
+    isActive:{
+        type: Boolean,
+        default: true,
     },
 
 }, { timestamps: true });
