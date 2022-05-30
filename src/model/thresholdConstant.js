@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const thresholdConstantSchema = new mongoose.Schema({
 
+    name:{
+        type: String,
+        required: true,
+    },
     channel_1: {
         type: Number,
         required: true,
@@ -34,6 +38,9 @@ const thresholdConstantSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    organization:{
+        type: String,
+    }
 
 }, { timestamps: true });
 

@@ -457,14 +457,14 @@ paths:
         200:
           description: OK
 
-  /thermometerRegister/{:id}:
+  /thermometerRegister/{:thermometerId}:
     get:
       tags:
         - Thermometer
       summary: get by id data for thermometer
       parameters:
         - in: path
-          name: :id
+          name: :thermometerId
           required: true
       responses:
         200:
@@ -478,10 +478,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/thermometerRegister"
+              $ref: "#/components/schemas/thermometerRegisterUpdate"
       parameters:
         - in: path
-          name: :id
+          name: :thermometerId
           required: true
       responses:
         200:
@@ -819,8 +819,25 @@ components:
       type: object
       required:
         - thermometerId
+        - threshold
       properties:
         thermometerId:
+          type: string
+        threshold:
+          type: string
+
+    thermometerRegisterUpdate:
+      type: object
+      required:
+        - thermometerId
+        - threshold
+        - organization
+      properties:
+        thermometerId:
+          type: string
+        threshold:
+          type: string
+        organization:
           type: string
 
     patient:

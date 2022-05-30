@@ -10,6 +10,10 @@ const thermometerRegisterSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    threshold: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "thresholdConstant",
+    },
     isActive: {
         type: Boolean,
         required: true,

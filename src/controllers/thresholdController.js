@@ -3,13 +3,13 @@ const { MESSAGE } = require("../../utils/constant");
 /********************* create  **************** */
 const create = (model) => async(req, res)=>{
     try {
-        let result;
-        const data = await model.find();
-        if(data.length > 0){
-            result = await model.findOneAndUpdate({ _id: data[0]._id }, req.body, { new: true });
-        }else{
-            result = await model.create(req.body);
-        }
+        const orgId = res.local.organization;
+        req.body.organization = orgId;
+        const random =  await model.find({});
+        const date = new Date();
+        const name = `${date.getFullYear()}-${date.getMonth()+1}-${random.length + 1}`;
+        req.body.name = name;
+        const result = await model.create(req.body);
         return res.status(200).json({ data: result, });
     } catch (error) {
         return res.status(500).send({ data: error.message });
@@ -35,8 +35,16 @@ const get = (model) => async(req, res)=>{
 /********************* get all  **************** */
 const getAll = (model) => async(req, res)=>{
     try {
-        let query = {};
-        const result =  await model.findOne(query);
+        let query;
+        if(res.local.role === "SUPER_ADMIN"){
+            query = {
+            };
+        }else{
+            query = {
+                organization: res.local.organization,
+            };
+        }
+        const result =  await model.find(query);
         return res.status(200).json({ data: result });
     } catch (error) {
         return res.status(500).send({ data: error.message });
