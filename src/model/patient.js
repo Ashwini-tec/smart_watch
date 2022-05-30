@@ -32,10 +32,7 @@ const patientSchema = new mongoose.Schema({
         type: String,
         enum: [ "self-IVF", "egg-donor", "surrogate", "IUI" ]
     },
-    type: {
-        type: String,
-        enum: [ "P1", "P2"],
-    },
+    metaData: {},
     organization: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "organization",

@@ -850,7 +850,6 @@ components:
         - picture
         - identifyProof
         - citizenship
-        - type
       properties:
         name:
           type: string
@@ -870,8 +869,8 @@ components:
           type: string
         cycleType:
           type: string
-        type:
-          type: string
+        metaData:
+          type: object
 
 
     patientAssigne:
