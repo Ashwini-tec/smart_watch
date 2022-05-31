@@ -19,6 +19,13 @@ module.exports = {
     updateStatus: () =>{
         return Joi.object({
             status: Joi.boolean(),
+            comments: Joi.string(),
+        });
+    },
+
+    procedureCompleteStatus: () =>{
+        return Joi.object({
+            status: Joi.boolean(),
         });
     },
 };

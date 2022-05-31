@@ -50,4 +50,14 @@ router.put(
     controller(PatientAssigne).updateProcedureStatus
 );
 
+/************ set procedure as complete for the patient ******** */
+router.post(
+    "/patientAssignee/procedure/:id",
+    authenticate.verifyUser,
+    authenticate.permissionAuth(PERMS.UPDATE_ASSIGNE_PATIENT_PROCEDURE),
+    validationMiddleware(validateParams.procedureCompleteStatus()),
+    controller(PatientAssigne).setProcedureAsComplete
+);
+
+
 module.exports = router;

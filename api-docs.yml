@@ -619,6 +619,24 @@ paths:
         200:
           description: OK
 
+  /patientAssignee/procedure/{:id}:
+    post:
+      tags:
+        - Patient_Assignee
+      summary: set procedure status for patient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/procedureCompleteStatus"
+      parameters:
+        - in: path
+          name: :id
+          required: true
+      responses:
+        200:
+          description: OK
+
 components:
   securitySchemes:
     authorization:
@@ -890,6 +908,17 @@ components:
           type: string
 
     procedureSteps:
+      type: object
+      required:
+        - status
+        - comments
+      properties:
+        status:
+          type: boolean
+        comments:
+          type: string
+
+    procedureCompleteStatus:
       type: object
       required:
         - status

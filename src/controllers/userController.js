@@ -52,7 +52,7 @@ const getAll = (model) => async(req, res)=>{
             .populate("role",["name"])
             .populate("permission.name",{ name: 1, _id: 0 })
             .populate("organization", ["name"])
-            .select("-password");
+            .select({ password: 0 });
         return res.status(200).json({ data: result });
     } catch (error) {
         return res.status(500).send({ data: error.message });
@@ -69,7 +69,8 @@ const get = (model) => async(req, res)=>{
         const result =  await model.findOne(query)
             .populate("role",["name"])
             .populate("permission.name",{ name: 1, _id: 0 })
-            .populate("organization",["name"]);
+            .populate("organization",["name"])
+            .select({ password: 0 });
         if(!result){
             return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
         }

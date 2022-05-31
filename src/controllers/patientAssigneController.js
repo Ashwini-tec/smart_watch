@@ -16,6 +16,7 @@ const create = (model) => async(req, res)=>{
             const info = {
                 ...i,
                 completed : false,
+                comments: "",
             };
             return info;
         });
@@ -57,6 +58,7 @@ const getAll = (model) => async(req, res)=>{
             query = {
                 date: { $lt: Date.now() + 86400000 , $gt: Date.now() },
                 assignedTo: res.local.id,
+                isActive: true,
             };
         }
         const result =  await model.find(query)
@@ -107,6 +109,7 @@ const updateProcedureStatus = (model) => async (req, res) => {
 
         let doc = result?.procedure?.steps;
         doc[req.params.idx].completed = req.body.status;
+        doc[req.params.idx].comments = req.body.comments;
         result.procedure.steps = doc;
         const data = await model.findOneAndUpdate({ _id: req.params.id }, result, { new : true });
         return res.status(200).json({ data: data });
@@ -115,6 +118,24 @@ const updateProcedureStatus = (model) => async (req, res) => {
     }
 };
 
+/******************* complete procedure for the patient *********** */
+const setProcedureAsComplete = (model) => async (req, res) => {
+    try {
+        let query = {
+            _id: req.params.id
+        };
+        let result =  await model.findOne(query).lean();
+        if(!result){
+            return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
+        }
+
+        result.isActive = req.body.status;
+        const data = await model.findOneAndUpdate({ _id: req.params.id }, result, { new : true });
+        return res.status(200).json({ data: data });
+    } catch (error) {
+        return res.status(500).send({ data: error.message });
+    }
+};
 
 module.exports = ( model ) => ({
     create: create(model),
@@ -122,4 +143,5 @@ module.exports = ( model ) => ({
     getAll: getAll(model),
     update: update(model),
     updateProcedureStatus: updateProcedureStatus(model),
+    setProcedureAsComplete: setProcedureAsComplete(model),
 });
