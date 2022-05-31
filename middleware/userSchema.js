@@ -10,9 +10,6 @@ module.exports = {
             address: Joi.string().required(),
             email: Joi.string().email().required(),
             role: Joi.string().required(),
-            permission:  Joi.array().items({
-                name: Joi.string().required(),
-            }),
             password: Joi.string().required(),
             organization: Joi.string().required(),
         });

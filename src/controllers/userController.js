@@ -3,20 +3,30 @@ const bcrypt = require("bcrypt");
 const mailer = require("../../utils/email");
 const referralCodeGenerator = require("referral-code-generator");
 const Organization = require("../model/organization");
+const Role = require("../model/role");
 
 /********************* create  **************** */
 const create = (model) => async(req, res)=>{
     try {
         const originalPassword = req.body.password;
         req.body.password = bcrypt.hashSync(req.body.password, 10);
+        /*********** check the user duplicate ******** */
         const user = await model.findOne({ email: req.body.email });
         if(user){
             return res.status(400).send({ data: MESSAGE.USER_ALREADY_EXIST });
         }
-        const organization = await Organization.findOne({_id: req.body.organization });
+        /************** check organization exist or not ********** */
+        const organization = await Organization.findOne({ _id: req.body.organization });
         if(!organization){
             return res.status(404).send({ data: MESSAGE.ORGANIZATION_NOT_FOUND });
         }
+        /************** check role exist or not ************ */
+        const roleData = await Role.findOne({ _id: req.body.role });
+        if(!roleData){
+            return res.status(404).send({ data: MESSAGE.ROLE_NOT_FOUND });
+        }
+
+        req.body.permission = roleData?.permission;
         let mail = await mailer.welcomeMail(req.body.email, {
             organization: organization.name,
             email: req.body.email,
