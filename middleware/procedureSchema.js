@@ -4,9 +4,11 @@ module.exports = {
     create: () =>{
         return Joi.object({
             name: Joi.string().required(),
+            discription: Joi.string(),
             steps: Joi.array().items(
                 Joi.object({
                     name: Joi.string().required(),
+                    discription: Joi.string(),
                 }).required(),
             ),
         });
@@ -15,9 +17,11 @@ module.exports = {
     update: () =>{
         return Joi.object({
             name: Joi.string().required(),
+            discription: Joi.string(),
             steps: Joi.array().items(
                 Joi.object({
                     name: Joi.string().required(),
+                    discription: Joi.string(),
                 }).required(),
             ),
         });

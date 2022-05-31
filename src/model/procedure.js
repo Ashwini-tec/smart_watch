@@ -6,6 +6,9 @@ const procedureSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    discription:{
+        type: String,
+    },
     steps: {
         type: Array,
         required: true,

@@ -824,8 +824,11 @@ components:
       required:
         - name
         - steps
+        - discription
       properties:
         name:
+          type: string
+        discription:
           type: string
         steps:
           type: array
@@ -833,6 +836,8 @@ components:
             type: object
             properties:
               name:
+                type: string
+              discription:
                 type: string
 
     thermometerRegister:
