@@ -1,3 +1,4 @@
+const { MESSAGE } = require("../../utils/constant");
 
 /********************* get all  **************** */
 const getAll = (model) => async(req, res)=>{
@@ -8,7 +9,9 @@ const getAll = (model) => async(req, res)=>{
                 { organization: null }
             ]
         };
-        let result =  await model.find(query).populate("organization",["name"]);
+        let result =  await model.find(query)
+            .populate("permission.name",["name"])
+            .populate("organization",["name"]);
         result = result.map( i => {
             if( i.name !== "SUPER_ADMIN"){
                 return i;
@@ -25,6 +28,26 @@ const getAll = (model) => async(req, res)=>{
     }
 };
 
+/********************* get by id **************** */
+const get = (model) => async(req, res)=>{
+    try {
+        let query = {
+            _id: req.params.id,
+        };
+        const result =  await model.findOne(query)
+            .populate("permission.name",["name"])
+            .populate("organization",["name"]);
+        if(!result){
+            return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
+        }
+        return res.status(200).json({ data: result });
+    } catch (error) {
+        return res.status(500).send({ data: error.message });
+    }
+};
+
+
 module.exports = ( model ) => ({
     getAll: getAll(model),
+    get: get(model),
 });

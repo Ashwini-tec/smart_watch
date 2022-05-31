@@ -796,9 +796,17 @@ components:
       type: object
       required:
         - name
+        - permission
       properties:
         name:
           type: string
+        permission:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
 
     procedure:
       type: object

@@ -14,7 +14,8 @@ const MESSAGE = {
     PERMISSION_NOT_PRESENT: "You are not allowed to perform this task",
     ORGANIZATION_NOT_FOUND: "Organization not found",
     POCEDURE_NOT_DECLARED: "Procedure not declared at root level",
-    DATA_ALREADY_EXIST: "Data already registered"
+    DATA_ALREADY_EXIST: "Data already registered",
+    ROLE_NOT_FOUND: "Role not found",
 };
 
 module.exports = { MESSAGE };

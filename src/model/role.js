@@ -10,6 +10,12 @@ const roleSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "organization",
     },
+    permission: [{
+        name: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "permission",
+        },
+    }],
     isActive:{
         type: Boolean,
         default: true,

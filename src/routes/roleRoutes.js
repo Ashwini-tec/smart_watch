@@ -30,7 +30,7 @@ router.get(
     "/role/:id",
     authenticate.verifyUser,
     authenticate.permissionAuth(PERMS.FETCH_ROLE),
-    controller(Role).getById
+    roleController(Role).get
 );
 
 /************ update by id ******** */
