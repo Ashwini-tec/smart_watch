@@ -11,11 +11,11 @@ const login = async(req, res) => {
         .populate("role",["name"])
         .populate("permission.name",["name"]);
     if (!user) {
-        return res.status(400).send({ status: 400, message: MESSAGE.INVALID_USER_PASSWORD });
+        return res.status(400).send({ status: 400, data: MESSAGE.INVALID_USER_PASSWORD });
     }
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
-        return res.status(400).send({ status: 400, message:MESSAGE. INVALID_USER_PASSWORD });
+        return res.status(400).send({ status: 400, data: MESSAGE. INVALID_USER_PASSWORD });
     }
     user.password = undefined;
     const permissions = user.permission.map( i => i = i.name.name);
@@ -27,7 +27,7 @@ const login = async(req, res) => {
         organization: user.organization,
     };
     user.permission = undefined;
-    res.status(200).send({ Message: MESSAGE.LOGIN_MESSAGE, data: user, token: generateToken(userData) });
+    res.status(200).send({ message: MESSAGE.LOGIN_MESSAGE, data: user, token: generateToken(userData) });
 };
 
 /*********** Token Generate Function ******* */

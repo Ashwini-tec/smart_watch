@@ -36,6 +36,7 @@ const create = (model) => async(req, res)=>{
             return res.status(200).send({ Message: mail.message });
         }
         const result = await model.create(req.body);
+        result.password = undefined;
         return res.status(200).json({ data: result });
     } catch (error) {
         return res.status(500).send({ data: error.message });
@@ -96,6 +97,7 @@ const update = (model) => async(req, res)=>{
             { _id: req.params.id },
             result, { new : true }
         );
+        data.password = undefined;
         return res.status(200).json({ data: data });
     } catch (error) {
         return res.status(500).send({ data: error.message });

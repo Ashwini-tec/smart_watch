@@ -20,7 +20,7 @@ const contactMail = async(mailTo, body, subject)=> {
 
         // Message object
         let message = {
-            from: `PDF Security<${process.env.EMAIL}>`,
+            from: `Smart Watch<${process.env.EMAIL}>`,
             to: mailTo,
             subject: subject,
             html: body
@@ -109,11 +109,11 @@ const welcomeMail = async(mailTo, body)=> {
         let message = {
             from: `Smart Watch<${process.env.EMAIL}>`,
             to: mailTo,
-            subject: "Reset Password Detail",
-            html: `<p>you are register to smart_watch tracking app. registered by organization
+            subject: "Registration Confirmation Mail",
+            html: `<p>Welcome To Smart_Watch Tracking App. You Are Registered To Our App By Organization
                     <b> ${body.organization}</b></p><br><br>
-                    <h4>your email: ${body.email}</h4>
-                    <h4>and password is: ${body.password}</h4>`
+                    <h4>Your Email: ${body.email}</h4>
+                    <h4>And Password: ${body.password}</h4>`
         };
 
         transporter.sendMail(message, (err, info) => {
