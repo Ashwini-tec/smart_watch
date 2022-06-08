@@ -3,7 +3,7 @@ const Joi = require("joi");
 module.exports = {
     create: () =>{
         return Joi.object({
-            name: Joi.string().required(),
+            name: Joi.string().not("SUPER_ADMIN", "ADMIN").uppercase().required(),
             permission:  Joi.array().items({
                 name: Joi.string().required(),
             }),
@@ -12,7 +12,7 @@ module.exports = {
 
     update: () =>{
         return Joi.object({
-            name: Joi.string().required(),
+            name: Joi.string().not("SUPER_ADMIN", "ADMIN").uppercase().required(),
             permission:  Joi.array().items({
                 name: Joi.string().required(),
             }),
