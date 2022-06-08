@@ -5,7 +5,7 @@ const { MESSAGE } = require("../../utils/constant");
 /********************* create  **************** */
 const create = (model) => async(req, res)=>{
     try {
-        const info = await model.findOne({ thermometerId: req.params.thermometerId });
+        const info = await model.findOne({ thermometerId: req.body.thermometerId });
         if(info){
             return res.status(404).send({ data: MESSAGE.DATA_ALREADY_EXIST });
         }
