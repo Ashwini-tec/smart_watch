@@ -28,7 +28,10 @@ const getAll = (model) => async(req, res)=>{
         if(req.query.createdDate){
             const timestamp = Number(req.query.createdDate);
             const date = new Date(timestamp);
-            query.createdAt =  { $gte : date};
+            query.createdAt =  {
+                $gte : date,
+                $lt: date + 86400000
+            };
         }
         if(req.query.thermometerId){
             const info =  await model.find(query);
