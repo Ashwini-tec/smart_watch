@@ -25,6 +25,11 @@ const getAll = (model) => async(req, res)=>{
             organization: res.local.organization,
             isActive: true,
         };
+        if(res.local.role === "SUPER_ADMIN"){
+            query = {
+                organization: null,
+            };
+        }
         let result =  await model.find(query);
         return res.status(200).json({ data: result });
     } catch (error) {
