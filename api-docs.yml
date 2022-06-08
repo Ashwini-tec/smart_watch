@@ -91,6 +91,12 @@ paths:
       tags:
         - Threshold_Constant
       summary: get all data for threshold values
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: filter according to threshold name
       responses:
         200:
           description: OK

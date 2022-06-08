@@ -44,6 +44,9 @@ const getAll = (model) => async(req, res)=>{
                 organization: res.local.organization,
             };
         }
+        if(req.query.name){
+            query.name = req.query.name;
+        }
         const result =  await model.find(query);
         return res.status(200).json({ data: result });
     } catch (error) {
