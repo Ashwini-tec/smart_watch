@@ -18,10 +18,4 @@ router.get(
     controller(Thermometer).getAll
 );
 
-/************ get by id ******** */
-router.get(
-    "/temperature/:id",
-    controller(Thermometer).getById
-);
-
 module.exports = router;

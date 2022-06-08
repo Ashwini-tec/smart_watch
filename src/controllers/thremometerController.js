@@ -18,51 +18,24 @@ const create = (model) => async(req, res)=>{
     }
 };
 
-/********************* get by id **************** */
-const get = (model) => async(req, res)=>{
-    try {
-        let query = {
-            thermometerId: req.params.id,
-        };
-        if(req.query.isActive){
-            query =  {
-                thermometerId: req.params.id,
-                isActive: req.query.isActive === "true" ? true : false
-            };
-        }
-        if(req.query.date){
-            const timestamp = Number(req.query.createdDate);
-            const date = new Date(timestamp);
-            query =  {
-                thermometerId: req.params.id,
-                createdAt: { $gte : date },
-            };
-        }
-        const result =  await model.find(query);
-        if(!result){
-            return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
-        }
-        return res.status(200).json({ data: result });
-    } catch (error) {
-        return res.status(500).send({ data: error.message });
-    }
-};
-
 /********************* get all  **************** */
 const getAll = (model) => async(req, res)=>{
     try {
         let query = {};
         if(req.query.isActive){
-            query =  {
-                isActive: req.query.isActive === "true" ? true : false,
-            };
+            query.isActive = req.query.isActive === "true" ? true : false;
         }
         if(req.query.createdDate){
             const timestamp = Number(req.query.createdDate);
             const date = new Date(timestamp);
-            query =  {
-                createdAt: { $gte : date},
-            };
+            query.createdAt =  { $gte : date};
+        }
+        if(req.query.thermometerId){
+            const info =  await model.find(query);
+            if(!info){
+                return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
+            }
+            query.thermometerId = req.query.thermometerId;
         }
         const result =  await model.find(query);
         return res.status(200).json({ data: result });
@@ -73,6 +46,5 @@ const getAll = (model) => async(req, res)=>{
 
 module.exports = ( model ) => ({
     create: create(model),
-    getById: get(model),
     getAll: getAll(model),
 });

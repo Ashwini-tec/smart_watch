@@ -55,28 +55,10 @@ paths:
       summary: get all data for thermometer
       parameters:
         - in: query
-          name: createdDate
+          name: thermometerId
           schema:
-            type: integer
-          description: timestamp value for date
-        - in: query
-          name: isActive
-          schema:
-            type: boolean
-          description: boolean value
-      responses:
-        200:
-          description: OK
-
-  /temperature/{:thermometerId}:
-    get:
-      tags:
-        - ThermometerData
-      summary: getbyid data for thermometer
-      parameters:
-        - in: path
-          name: :thermometerId
-          required: true
+            type: string
+          description: filter according to thermometerId
         - in: query
           name: createdDate
           schema:
