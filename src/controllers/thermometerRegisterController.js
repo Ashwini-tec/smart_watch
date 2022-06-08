@@ -72,6 +72,9 @@ const getAll = (model) => async(req, res)=>{
                 organization: res.local.organization,
             };
         }
+        if(req.query.threshold){
+            query.threshold = req.query.threshold;
+        }
         let result =  await model.find(query).populate("threshold");
         return res.status(200).json({ data: result });
     } catch (error) {

@@ -436,6 +436,12 @@ paths:
       tags:
         - Thermometer
       summary: get all data for thermometer
+      parameters:
+        - in: query
+          name: threshold
+          schema:
+            type: string
+          description: filter according to threshold id
       responses:
         200:
           description: OK
