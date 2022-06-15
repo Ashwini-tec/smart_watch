@@ -22,7 +22,7 @@ const get = (model) => async(req, res)=>{
         let query = {
             _id: req.params.id,
         };
-        const result =  await model.findOne(query);
+        const result =  await model.findOne(query).populate("organization",["name"]);
         if(!result){
             return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
         }
@@ -47,7 +47,7 @@ const getAll = (model) => async(req, res)=>{
         if(req.query.name){
             query.name = req.query.name;
         }
-        const result =  await model.find(query);
+        const result =  await model.find(query).populate("organization",["name"]);
         return res.status(200).json({ data: result });
     } catch (error) {
         return res.status(500).send({ data: error.message });
