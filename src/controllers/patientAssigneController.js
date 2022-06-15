@@ -1,5 +1,4 @@
 const { MESSAGE } = require("../../utils/constant");
-const Procedure = require("../model/procedure");
 
 /********************* create  **************** */
 const create = (model) => async(req, res)=>{
@@ -8,10 +7,7 @@ const create = (model) => async(req, res)=>{
         req.body.organization = orgId;
         req.body.assignedBy = res.local.id;
         req.body.date = Date.now() + 3600000;
-        let procedure = await Procedure.findOne({ _id: req.body.procedure });
-        if(!procedure){
-            return res.status(404).json({ data: MESSAGE.DATA_NOT_FOUND });
-        }
+        let procedure = req.body.procedure;
         procedure.steps = procedure.steps.map( i => {
             const info = {
                 ...i,

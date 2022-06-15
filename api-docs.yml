@@ -907,7 +907,21 @@ components:
         patient:
           type: string
         procedure:
-          type: string
+          type: object
+          properties:
+            name:
+              type: string
+            discription:
+              type: string
+            steps:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  discription:
+                    type: string
 
     procedureSteps:
       type: object
