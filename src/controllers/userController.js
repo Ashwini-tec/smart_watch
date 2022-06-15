@@ -46,9 +46,16 @@ const create = (model) => async(req, res)=>{
 /********************* get all  **************** */
 const getAll = (model) => async(req, res)=>{
     try {
-        let query = {
-            organization: res.local.organization,
-        };
+        let query = {};
+        if(res.local.role === "SUPER_ADMIN"){
+            query ={
+                organization: req.query.organization || res.local.organization
+            };
+        }else{
+            query = {
+                organization: res.local.organization,
+            };
+        }
         const result =  await model.find(query)
             .populate("role",["name"])
             .populate("permission.name",{ name: 1, _id: 0 })

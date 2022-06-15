@@ -66,8 +66,7 @@ const getAll = (model) => async(req, res)=>{
     try {
         let query;
         if(res.local.role === "SUPER_ADMIN"){
-            query = {
-            };
+            query = req.query.organization ? { organization: req.query.organization } : {};
         }else{
             query = {
                 organization: res.local.organization,

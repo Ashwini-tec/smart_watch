@@ -1,6 +1,5 @@
 const router = require("express").Router();
 require("dotenv").config();
-// const controller = require("../controllers/CRUDController");
 const userController = require("../controllers/userController");
 const validationMiddleware = require("../../config/schemaValidation");
 const validateParams = require("../../middleware/userSchema");

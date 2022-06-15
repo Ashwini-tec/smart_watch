@@ -3,12 +3,19 @@ const { MESSAGE } = require("../../utils/constant");
 /********************* get all  **************** */
 const getAll = (model) => async(req, res)=>{
     try {
-        let query = {
-            $or:[
-                { organization: res.local.organization },
-                { organization: null }
-            ]
-        };
+        let query = {};
+        if(res.local.role === "SUPER_ADMIN"){
+            query = {
+                organization: req.query.organization || res.local.organization,
+            };
+        }else{
+            query = {
+                $or:[
+                    { organization: res.local.organization },
+                    { organization: null }
+                ]
+            };
+        }
         let result =  await model.find(query)
             .populate("permission.name",["name"])
             .populate("organization",["name"]);

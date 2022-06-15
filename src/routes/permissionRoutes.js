@@ -1,8 +1,6 @@
 const router = require("express").Router();
 require("dotenv").config();
 const controller = require("../controllers/CRUDController");
-// const validationMiddleware = require("../../config/schemaValidation");
-// const validateParams = require("../../middleware/thresholdConstantSchema");
 const Permission = require("../model/permission");
 const { PERMS } = require("../../lib/bootstrap");
 const authenticate = require("../../utils/auth");

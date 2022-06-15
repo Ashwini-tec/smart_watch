@@ -54,9 +54,16 @@ const get = (model) => async(req, res)=>{
 /********************* get all  **************** */
 const getAll = (model) => async(req, res)=>{
     try {
-        let query = {
-            organization: res.local.organization,
-        };
+        let query = {};
+        if(res.local.role === "SUPER_ADMIN"){
+            query ={
+                organization: req.query.organization || res.local.organization,
+            };
+        }else{
+            query = {
+                organization: res.local.organization,
+            };
+        }
         if(req.query.assignedToMe === "true"){
             query = {
                 date: { $lt: Date.now() + 86400000 , $gt: Date.now() },
