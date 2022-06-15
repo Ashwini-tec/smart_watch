@@ -97,6 +97,11 @@ paths:
           schema:
             type: string
           description: filter according to threshold name
+        - in: query
+          name: organization
+          schema:
+            type: string
+          description: filter according to organization id only useful for superadmin
       responses:
         200:
           description: OK
@@ -149,6 +154,12 @@ paths:
       tags:
         - User
       summary: get all data for user
+      parameters:
+        - in: query
+          name: organization
+          schema:
+            type: string
+          description: filter according to organization id only useful for superadmin
       responses:
         200:
           description: OK
@@ -299,6 +310,12 @@ paths:
       tags:
         - Role
       summary: get all data for role
+      parameters:
+        - in: query
+          name: organization
+          schema:
+            type: string
+          description: filter according to organization id only useful for superadmin
       responses:
         200:
           description: OK
@@ -373,6 +390,12 @@ paths:
       tags:
         - Procedure
       summary: get all data for procedure
+      parameters:
+        - in: query
+          name: organization
+          schema:
+            type: string
+          description: filter according to organization id only useful for superadmin
       responses:
         200:
           description: OK
@@ -448,6 +471,11 @@ paths:
           schema:
             type: string
           description: filter according to threshold id
+        - in: query
+          name: organization
+          schema:
+            type: string
+          description: filter according to organization id only useful for superadmin
       responses:
         200:
           description: OK
@@ -500,6 +528,12 @@ paths:
       tags:
         - Patient
       summary: get all data for patient
+      parameters:
+        - in: query
+          name: organization
+          schema:
+            type: string
+          description: filter according to organization id only useful for superadmin
       responses:
         200:
           description: OK
@@ -558,6 +592,11 @@ paths:
           name: assignedToMe
           schema:
             type: boolean
+        - in: query
+          name: organization
+          schema:
+            type: string
+          description: filter according to organization id only useful for superadmin
       responses:
         200:
           description: OK
