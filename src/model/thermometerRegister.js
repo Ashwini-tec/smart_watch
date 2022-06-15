@@ -17,12 +17,19 @@ const thermometerRegisterSchema = new mongoose.Schema({
     isActive: {
         type: Boolean,
         required: true,
-        default: true,
+        default: false,
     },
     organization:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "organization",
     },
+    assignedAt: {
+        type: Number,
+    },
+    assignedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+    }
 
 }, { timestamps: true });
 

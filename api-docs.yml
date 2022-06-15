@@ -7,7 +7,7 @@ info:
 servers:
   - url: "http://localhost:4090/api/"
   - url: "http://167.172.220.75:4090/api"
-  - url: "https://smart.rfid.ariantechsolutions.in/api/"
+  - url: "https://smart.rfid.ariantechsolutions.in/api/api/"
 
 security:
     - authorization: []
@@ -851,6 +851,7 @@ components:
         - thermometerId
         - threshold
         - organization
+        - isActive
       properties:
         thermometerId:
           type: string
@@ -858,6 +859,8 @@ components:
           type: string
         organization:
           type: string
+        isActive:
+          type: boolean
 
     patient:
       type: object

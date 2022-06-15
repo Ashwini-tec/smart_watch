@@ -1,4 +1,3 @@
-const Organization = require("../model/organization");
 const referralCodeGenerator = require("referral-code-generator");
 const { MESSAGE } = require("../../utils/constant");
 
@@ -27,14 +26,13 @@ const update = (model) => async(req, res)=>{
         if(!info){
             return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
         }
-        const orgName = await Organization.findOne({ _id: req.body.organization });
-        const name = `${orgName.name}-${info.name}`;
-        req.body.name = name;
         const body = req.body;
         info = {
             ...info,
-            body,
-            organization: req.body.organization
+            ...body,
+            organization: req.body.organization,
+            assignedAt: Date.now(),
+            assignedBy: res.local.id,
         };
         const result = await model.findOneAndUpdate({ _id: info._id }, info, { new : true });
         return res.status(200).json({ data: result, });
@@ -50,7 +48,10 @@ const get = (model) => async(req, res)=>{
         let query = {
             thermometerId: req.params.thermometerId,
         };
-        const result =  await model.findOne(query).populate("threshold");
+        const result =  await model.findOne(query)
+            .populate("threshold")
+            .populate("assignedBy",["firstName", "lastName", "middleName"])
+            .populate("organization",["name"]);
         if(!result){
             return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
         }
@@ -75,7 +76,10 @@ const getAll = (model) => async(req, res)=>{
         if(req.query.threshold){
             query.threshold = req.query.threshold;
         }
-        let result =  await model.find(query).populate("threshold");
+        let result =  await model.find(query)
+            .populate("threshold")
+            .populate("assignedBy",["firstName", "lastName", "middleName"])
+            .populate("organization",["name"]);
         return res.status(200).json({ data: result });
     } catch (error) {
         return res.status(500).send({ data: error.message });

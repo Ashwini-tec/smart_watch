@@ -13,6 +13,7 @@ module.exports = {
             thermometerId: Joi.string(),
             threshold: Joi.string(),
             organization: Joi.string().required(),
+            isActive: Joi.boolean().required(),
         });
     },
 };
