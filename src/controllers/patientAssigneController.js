@@ -35,8 +35,15 @@ const get = (model) => async(req, res)=>{
             _id: req.params.id,
         };
         const result =  await model.findOne(query)
-            .populate("organization",["name"])
-            .populate("assignedTo",{ email:1, firstName:1, lastName:1, role: 1 })
+            .populate("organization",[ "name", "procedures" ])
+            .populate({
+                path : "assignedTo",
+                select: ["email", "firstName", "lastName", "middleName", "role"],
+                populate : {
+                    path : "role",
+                    select: "name",
+                }
+            })
             .populate("patient")
             .populate("assignedBy",["firstName", "lastName"]);
         if(!result){
@@ -62,8 +69,15 @@ const getAll = (model) => async(req, res)=>{
             };
         }
         const result =  await model.find(query)
-            .populate("organization",["name"])
-            .populate("assignedTo",{ email:1, firstName:1, lastName:1, role: 1 })
+            .populate("organization",[ "name", "procedures" ])
+            .populate({
+                path : "assignedTo",
+                select: ["email", "firstName", "lastName", "middleName", "role"],
+                populate : {
+                    path : "role",
+                    select: "name",
+                }
+            })
             .populate("patient")
             .populate("assignedBy",["firstName", "lastName"]);
         return res.status(200).json({ data: result });
