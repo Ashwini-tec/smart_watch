@@ -27,8 +27,8 @@ router.get(
 /************ get by id ******** */
 router.get(
     "/thermometerRegister/:thermometerId",
-    authenticate.verifyUser,
-    authenticate.permissionAuth(PERMS.FETCH_THERMOMETER),
+    // authenticate.verifyUser,
+    // authenticate.permissionAuth(PERMS.FETCH_THERMOMETER),
     thermoController(ThermometerRegister).getById
 );
 
