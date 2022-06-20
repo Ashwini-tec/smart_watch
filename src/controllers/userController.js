@@ -57,8 +57,8 @@ const getAll = (model) => async(req, res)=>{
             };
         }
         const result =  await model.find(query)
-            .populate("role")
-            .populate("permission.name",{ name: 1, _id: 0 })
+            .populate("role",["name"])
+            .populate("permission.name",{ name: 1 })
             .populate("organization", ["name"])
             .select({ password: 0 });
         return res.status(200).json({ data: result });
@@ -75,8 +75,8 @@ const get = (model) => async(req, res)=>{
             _id: req.params.id,
         };
         const result =  await model.findOne(query)
-            .populate("role")
-            .populate("permission.name",{ name: 1, _id: 0 })
+            .populate("role",["name"])
+            .populate("permission.name",{ name: 1 })
             .populate("organization",["name"])
             .select({ password: 0 });
         if(!result){
