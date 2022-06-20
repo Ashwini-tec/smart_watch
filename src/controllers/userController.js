@@ -57,7 +57,7 @@ const getAll = (model) => async(req, res)=>{
             };
         }
         const result =  await model.find(query)
-            .populate("role",["name"])
+            .populate("role")
             .populate("permission.name",{ name: 1, _id: 0 })
             .populate("organization", ["name"])
             .select({ password: 0 });
@@ -75,7 +75,7 @@ const get = (model) => async(req, res)=>{
             _id: req.params.id,
         };
         const result =  await model.findOne(query)
-            .populate("role",["name"])
+            .populate("role")
             .populate("permission.name",{ name: 1, _id: 0 })
             .populate("organization",["name"])
             .select({ password: 0 });

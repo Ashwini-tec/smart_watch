@@ -14,7 +14,7 @@ router.post(
     authenticate.verifyUser,
     authenticate.permissionAuth(PERMS.CREATE_ROLE),
     validationMiddleware(validateParams.create()),
-    controller(Role).create
+    roleController(Role).create
 );
 
 /********** get all  ******** */

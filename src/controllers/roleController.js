@@ -1,5 +1,24 @@
 const { MESSAGE } = require("../../utils/constant");
 
+/********************* create  **************** */
+const create = (model) => async(req, res)=>{
+    try {
+        const orgId = res.local.organization;
+        req.body.organization = orgId;
+        let name = req.body.name;
+        name = name.toUpperCase();
+        const info = await model.findOne({ name: name });
+        if(info){
+            return res.status(409).send({ data: MESSAGE.DATA_ALREADY_EXIST });
+        }
+        req.body.name = name;
+        const result = await model.create(req.body);
+        return res.status(200).json({ data: result, });
+    } catch (error) {
+        return res.status(500).send({ data: error.message });
+    }
+};
+
 /********************* get all  **************** */
 const getAll = (model) => async(req, res)=>{
     try {
@@ -55,6 +74,7 @@ const get = (model) => async(req, res)=>{
 
 
 module.exports = ( model ) => ({
+    create: create(model),
     getAll: getAll(model),
     get: get(model),
 });
