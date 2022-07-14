@@ -73,6 +73,19 @@ paths:
         200:
           description: OK
 
+  /temperature/compare/{:thermometerId}:
+    get:
+      tags:
+        - ThermometerData
+      summary: compare thermometer live data with threshold constant
+      parameters:
+        - in: path
+          name: :thermometerId
+          required: true
+      responses:
+        200:
+          description: OK
+
   /thresholdConstant:
     post:
       tags:

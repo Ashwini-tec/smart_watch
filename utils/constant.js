@@ -16,6 +16,7 @@ const MESSAGE = {
     POCEDURE_NOT_DECLARED: "Procedure not declared at root level",
     DATA_ALREADY_EXIST: "Data already registered",
     ROLE_NOT_FOUND: "Role not found",
+    THERMOMETER_NOT_REGIESTER: "Thermometer is not registered with threshold constant",
 };
 
 module.exports = { MESSAGE };

@@ -18,4 +18,10 @@ router.get(
     controller(Thermometer).getAll
 );
 
+/********** compare channels with live data  ******** */
+router.get(
+    "/temperature/compare/:thermometerId",
+    controller(Thermometer).compare
+);
+
 module.exports = router;
