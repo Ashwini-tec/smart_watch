@@ -7,7 +7,9 @@ info:
 servers:
   - url: "http://localhost:4090/api/"
   - url: "http://167.172.220.75:4090/api"
+  - url: "http://18.212.183.231:4090/api"
   - url: "https://smart.rfid.ariantechsolutions.in/api/api/"
+  - url: "https://api.curocura.com/api/"
 
 security:
     - authorization: []
