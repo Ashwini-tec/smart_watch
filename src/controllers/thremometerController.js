@@ -52,14 +52,13 @@ const getAll = (model) => async(req, res)=>{
 const compare = ( model ) => async(req, res) =>{
     try {
         let query = {
-            isActive: true,
-            thermometerId: req.params.thermometerId,
+            _id: req.params.id,
         };
         const info =  await model.findOne(query);
         if(!info){
             return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
         }
-        const registerData = await ThermometerRegister.findOne({ thermometerId: req.params.thermometerId }).populate("threshold");
+        const registerData = await ThermometerRegister.findOne({ thermometerId: info.thermometerId }).populate("threshold");
         const liveData ={
             liveData: {
                 channel_1: info?.temperature[0].channel_1,
@@ -73,7 +72,7 @@ const compare = ( model ) => async(req, res) =>{
             }
         };
         if(!registerData){
-            return res.status(404).send({ Message: MESSAGE.THERMOMETER_NOT_REGIESTER, data : liveData });
+            return res.status(200).send({ Message: MESSAGE.THERMOMETER_NOT_REGIESTER, data : liveData });
         }
         const result = {
             liveData: liveData.liveData,

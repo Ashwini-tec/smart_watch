@@ -20,7 +20,7 @@ router.get(
 
 /********** compare channels with live data  ******** */
 router.get(
-    "/temperature/compare/:thermometerId",
+    "/temperature/compare/:id",
     controller(Thermometer).compare
 );
 
