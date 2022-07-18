@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
+const ejs = require("ejs");
 
 /**********************************//* contact via mail *//*****************************/
 
@@ -106,30 +107,33 @@ const welcomeMail = async(mailTo, body)=> {
         });
 
         // Message object
-        let message = {
-            from: `Smart Watch<${process.env.EMAIL}>`,
-            to: mailTo,
-            subject: "Registration Confirmation Mail",
-            html: `<p>Welcome To Smart_Watch Tracking App. You Are Registered To Our App By Organization
-                    <b> ${body.organization}</b></p><br><br>
-                    <h4>Your Email: ${body.email}</h4>
-                    <h4>And Password: ${body.password}</h4>`
-        };
-
-        transporter.sendMail(message, (err, info) => {
+        ejs.renderFile(global.__basedir + "/public/registerUserEmail.ejs", { body: body }, function (err, data) {
             if (err) {
-                console.log("Error occurred. " + err.message);
-                return reject({
-                    sent: false,
-                    message: err.message
+                console.log(err);
+            } else {
+                let message = {
+                    from: `Smart Watch<${process.env.EMAIL}>`,
+                    to: mailTo,
+                    subject: "Registration Confirmation Mail",
+                    html: data
+                };
+
+                transporter.sendMail(message, (err, info) => {
+                    if (err) {
+                        console.log("Error occurred. " + err.message);
+                        return reject({
+                            sent: false,
+                            message: err.message
+                        });
+                    }
+                    console.log("Message sent: %s", info.messageId);
+                    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+                    return resolve({
+                        sent: true,
+                        message: `mail send suessfully ${info.messageId}`
+                    });
                 });
             }
-            console.log("Message sent: %s", info.messageId);
-            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-            return resolve({
-                sent: true,
-                message: `mail send suessfully ${info.messageId}`
-            });
         });
     });
 };

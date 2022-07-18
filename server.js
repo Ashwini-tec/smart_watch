@@ -18,6 +18,7 @@ require("dotenv").config();
 require("./config/db");
 const cors = require("cors");
 const bootstrapData = require("./lib/index");
+const path = require("path");
 
 global.__basedir = __dirname;
 const corsOptions = {
@@ -26,6 +27,12 @@ const corsOptions = {
     preflightContinue: false,
     optionsSuccessStatus: 204
 };
+
+//set views file
+app.set("views",path.join(global.__basedir,"/public/registerUserEmail"));
+
+//set view engine
+app.set("view engine", "ejs");
 
 app.use(
     "/docs",
@@ -39,6 +46,9 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 /********** bootstraping data */
 bootstrapData();
+
+/************* api to get logo ********/
+app.use("/public/", express.static(path.join(global.__basedir,"/public/image")));
 
 /***************** routes *********************/
 app.use("/api", thermometerRoutes);
