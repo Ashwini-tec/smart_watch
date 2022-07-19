@@ -1,6 +1,5 @@
 const router = require("express").Router();
 require("dotenv").config();
-const controller = require("../controllers/CRUDController");
 const roleController = require("../controllers/roleController");
 const validationMiddleware = require("../../config/schemaValidation");
 const validateParams = require("../../middleware/roleSchema");
@@ -39,7 +38,7 @@ router.put(
     authenticate.verifyUser,
     authenticate.permissionAuth(PERMS.UPDATE_ROLE),
     validationMiddleware(validateParams.update()),
-    controller(Role).update
+    roleController(Role).update
 );
 
 module.exports = router;

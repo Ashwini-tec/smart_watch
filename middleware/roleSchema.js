@@ -12,7 +12,7 @@ module.exports = {
 
     update: () =>{
         return Joi.object({
-            name: Joi.string().not("SUPER_ADMIN", "ADMIN").uppercase().required(),
+            name: Joi.string().not("SUPER_ADMIN").uppercase().required(),
             permission:  Joi.array().items({
                 name: Joi.string().required(),
             }),

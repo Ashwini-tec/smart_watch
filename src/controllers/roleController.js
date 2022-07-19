@@ -72,9 +72,50 @@ const get = (model) => async(req, res)=>{
     }
 };
 
+/********************* update  **************** */
+const update = (model) => async(req, res)=>{
+    try {
+        let query = {
+            _id: req.params.id
+        };
+        let result =  await model.findOne(query).lean();
+        if(!result){
+            return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
+        }
+
+        /******************* if admin role is in change then only super admin can change it
+         *  but name of admin can not be changed it is always be a admin ***************** */
+        if(result.name === "ADMIN"){
+            if(res.local.role !== "SUPER_ADMIN"){
+                return res.status(400).send({ data: MESSAGE.PERMISSION_NOT_GIVEN });
+            }
+            req.body.name = result.name;
+            const doc = req.body;
+            result = {...result, ...doc};
+            const data = await model.findOneAndUpdate({ _id: req.params.id }, result, { new : true });
+            return res.status(200).json({ data: data });
+        }
+
+        let name = req.body.name;
+        name = name.toUpperCase();
+        req.body.name = name;
+
+        /****************** if name of the role is admin then throws error *********** */
+        if(req.body.name === "ADMIN"){
+            return res.status(400).send({ data: MESSAGE.DATA_ALREADY_EXIST });
+        }
+        const doc = req.body;
+        result = {...result, ...doc};
+        const data = await model.findOneAndUpdate({ _id: req.params.id }, result, { new : true });
+        return res.status(200).json({ data: data });
+    } catch (error) {
+        return res.status(500).send({ data: error.message });
+    }
+};
 
 module.exports = ( model ) => ({
     create: create(model),
     getAll: getAll(model),
     get: get(model),
+    update: update(model),
 });
