@@ -25,7 +25,10 @@ const getAll = (model) => async(req, res)=>{
         let query = {};
         if(res.local.role === "SUPER_ADMIN"){
             query = {
-                organization: req.query.organization || res.local.organization,
+                $or:[
+                    { organization: req.query.organization || res.local.organization },
+                    { organization: null }
+                ]
             };
         }else{
             query = {
