@@ -17,6 +17,7 @@ const MESSAGE = {
     DATA_ALREADY_EXIST: "Data already registered",
     ROLE_NOT_FOUND: "Role not found",
     THERMOMETER_NOT_REGIESTER: "Thermometer is not registered with threshold constant",
+    SUCCESS_PASSWORD_CHANGE: "Password changed successfully",
 };
 
 module.exports = { MESSAGE };

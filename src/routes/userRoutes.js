@@ -55,4 +55,12 @@ router.post(
     userController(User).resetPassword
 );
 
+/***************** change password ************ */
+router.post(
+    "/user/resetPassword",
+    authenticate.verifyUser,
+    validationMiddleware(validateParams.passwordUpdate()),
+    userController(User).ChangePassword
+);
+
 module.exports = router;

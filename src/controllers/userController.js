@@ -162,6 +162,28 @@ const resetPassword = (model) => async(req,res) => {
     }
 };
 
+/******************** change password ********** */
+const ChangePassword = (model) => async(req,res) => {
+    try {
+        let query = {
+            email: res.local.email,
+        };
+        const result =  await model.findOne(query);
+        if(!result){
+            return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
+        }
+        const password = bcrypt.hashSync(req.body.password, 10);
+        const data = await model.findOneAndUpdate(
+            { _id: result._id },
+            { $set: { password: password }},
+            { new : true }
+        );
+        return res.status(200).json({ data: data , Message: MESSAGE.SUCCESS_PASSWORD_CHANGE });
+    } catch (error) {
+        return res.status(500).send({ data: error.message });
+    }
+};
+
 module.exports = ( model ) => ({
     create: create(model),
     getAll: getAll(model),
@@ -169,4 +191,5 @@ module.exports = ( model ) => ({
     update: update(model),
     forgotPassword: forgotPassword(model),
     resetPassword: resetPassword(model),
+    ChangePassword: ChangePassword(model),
 });

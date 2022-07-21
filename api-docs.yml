@@ -227,6 +227,20 @@ paths:
         200:
           description: OK
 
+  /user/resetPassword:
+    post:
+      tags:
+        - User
+      summary: change password for login user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/resetPassword"
+      responses:
+        200:
+          description: OK
+
   /user/forgotPassword:
     post:
       tags:
