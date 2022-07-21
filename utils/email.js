@@ -25,7 +25,7 @@ const contactMail = async(subject, body)=> {
             cc: body.query,
             to: process.env.EMAIL,
             subject: subject,
-            html: body
+            html: `<h4>Message: ${body.message}</h4>`
         };
 
         transporter.sendMail(message, (err, info) => {

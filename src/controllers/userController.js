@@ -134,6 +134,7 @@ const forgotPassword = (model) => async(req,res) => {
             { $set: { uniqueId: random }},
             { new : true }
         );
+        data.password = undefined;
         return res.status(200).json({ data: data });
     } catch (error) {
         return res.status(500).send({ data: error.message });
@@ -156,6 +157,7 @@ const resetPassword = (model) => async(req,res) => {
             { $set: { password: password,uniqueId:"" }},
             { new : true }
         );
+        data.password = undefined;
         return res.status(200).json({ data: data });
     } catch (error) {
         return res.status(500).send({ data: error.message });
@@ -178,6 +180,7 @@ const ChangePassword = (model) => async(req,res) => {
             { $set: { password: password }},
             { new : true }
         );
+        data.password = undefined;
         return res.status(200).json({ data: data , Message: MESSAGE.SUCCESS_PASSWORD_CHANGE });
     } catch (error) {
         return res.status(500).send({ data: error.message });
@@ -194,7 +197,7 @@ const contactAdminstrator = (model) => async(req,res) => {
         if(!result){
             return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
         }
-        let mail = await mailer.forgotPasssword(req.body.subject, {
+        let mail = await mailer.contactMail(req.body.subject, {
             query: res.local.email,
             message: req.body.message,
         });
