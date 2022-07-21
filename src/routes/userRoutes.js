@@ -63,4 +63,12 @@ router.post(
     userController(User).ChangePassword
 );
 
+/***************** contact administrator ************ */
+router.post(
+    "/user/contactUs",
+    authenticate.verifyUser,
+    validationMiddleware(validateParams.contactUs()),
+    userController(User).contactAdminstrator
+);
+
 module.exports = router;

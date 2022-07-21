@@ -4,7 +4,7 @@ const ejs = require("ejs");
 
 /**********************************//* contact via mail *//*****************************/
 
-const contactMail = async(mailTo, body, subject)=> {
+const contactMail = async(subject, body)=> {
     return new Promise((resolve,reject)=>{
 
         // Create a SMTP transporter object
@@ -21,8 +21,9 @@ const contactMail = async(mailTo, body, subject)=> {
 
         // Message object
         let message = {
-            from: `Smart Watch<${process.env.EMAIL}>`,
-            to: mailTo,
+            from: `CuroCura.com<${process.env.EMAIL}>`,
+            cc: body.query,
+            to: process.env.EMAIL,
             subject: subject,
             html: body
         };
@@ -64,7 +65,7 @@ const forgotPasssword = async(mailTo, body)=> {
 
         // Message object
         let message = {
-            from: `Smart Watch<${process.env.EMAIL}>`,
+            from: `CuroCura.com<${process.env.EMAIL}>`,
             to: mailTo,
             subject: "Reset Password Detail",
             html: `<h1>Message: ${body.message}</h1>
@@ -112,7 +113,7 @@ const welcomeMail = async(mailTo, body)=> {
                 console.log(err);
             } else {
                 let message = {
-                    from: `Smart Watch<${process.env.EMAIL}>`,
+                    from: `CuroCura.com<${process.env.EMAIL}>`,
                     to: mailTo,
                     subject: "Registration Confirmation Mail",
                     html: data

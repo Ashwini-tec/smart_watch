@@ -40,4 +40,11 @@ module.exports = {
             password: Joi.string().required(),
         });
     },
+
+    contactUs: () =>{
+        return Joi.object({
+            message: Joi.string().required(),
+            subject: Joi.string().required(),
+        });
+    },
 };

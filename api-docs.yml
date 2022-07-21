@@ -241,6 +241,20 @@ paths:
         200:
           description: OK
 
+  /user/contactUs:
+    post:
+      tags:
+        - User
+      summary: contact administrator using e-mail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/contactUs"
+      responses:
+        200:
+          description: OK
+
   /user/forgotPassword:
     post:
       tags:
@@ -1019,4 +1033,15 @@ components:
         assignedTo:
           type: string
         patient:
+          type: string
+
+    contactUs:
+      type: object
+      required:
+        - subject
+        - message
+      properties:
+        subject:
+          type: string
+        message:
           type: string

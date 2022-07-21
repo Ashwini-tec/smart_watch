@@ -90,7 +90,7 @@ const update = (model) => async(req, res)=>{
          *  but name of admin can not be changed it is always be a admin ***************** */
         if(result.name === "ADMIN"){
             if(res.local.role !== "SUPER_ADMIN"){
-                return res.status(400).send({ data: MESSAGE.PERMISSION_NOT_GIVEN });
+                return res.status(400).send({ data: MESSAGE.PERMISSION_NOT_PRESENT });
             }
             req.body.name = result.name;
             const doc = req.body;

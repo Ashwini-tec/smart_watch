@@ -184,6 +184,29 @@ const ChangePassword = (model) => async(req,res) => {
     }
 };
 
+/********************* contact to administrator mail **************** */
+const contactAdminstrator = (model) => async(req,res) => {
+    try {
+        let query = {
+            email: res.local.email,
+        };
+        const result =  await model.findOne(query);
+        if(!result){
+            return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
+        }
+        let mail = await mailer.forgotPasssword(req.body.subject, {
+            query: res.local.email,
+            message: req.body.message,
+        });
+        if(!mail.sent){
+            return res.status(200).send({ Message: mail.message });
+        }
+        return res.status(200).json({ data: MESSAGE.SUCCESS_MESSAGE });
+    } catch (error) {
+        return res.status(500).send({ data: error.message });
+    }
+};
+
 module.exports = ( model ) => ({
     create: create(model),
     getAll: getAll(model),
@@ -192,4 +215,5 @@ module.exports = ( model ) => ({
     forgotPassword: forgotPassword(model),
     resetPassword: resetPassword(model),
     ChangePassword: ChangePassword(model),
+    contactAdminstrator: contactAdminstrator(model),
 });
