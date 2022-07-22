@@ -20,29 +20,35 @@ const contactMail = async(subject, body)=> {
         });
 
         // Message object
-        let message = {
-            from: `CuroCura.com<${process.env.EMAIL}>`,
-            cc: body.query,
-            to: process.env.EMAIL,
-            subject: subject,
-            html: `<h4>Message: ${body.message}</h4>`
-        };
-
-        transporter.sendMail(message, (err, info) => {
+        ejs.renderFile(global.__basedir + "/public/contactUsEmail.ejs", { body: body }, function (err, data) {
             if (err) {
-                console.log("Error occurred. " + err.message);
-                return reject({
-                    sent: false,
-                    message: err.message
+                console.log(err);
+            } else {
+                let message = {
+                    from: `CuroCura.com<${process.env.EMAIL}>`,
+                    cc: body.query,
+                    to: process.env.EMAIL,
+                    subject: subject,
+                    html: data
+                };
+
+                transporter.sendMail(message, (err, info) => {
+                    if (err) {
+                        console.log("Error occurred. " + err.message);
+                        return reject({
+                            sent: false,
+                            message: err.message
+                        });
+                    }
+                    console.log("Message sent: %s", info.messageId);
+                    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+                    return resolve({
+                        sent: true,
+                        message: `mail send suessfully ${info.messageId}`
+                    });
                 });
-            }
-            console.log("Message sent: %s", info.messageId);
-            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-            return resolve({
-                sent: true,
-                message: `mail send suessfully ${info.messageId}`
-            });
-        });
+            }}
+        );
     });
 };
 
@@ -64,29 +70,34 @@ const forgotPasssword = async(mailTo, body)=> {
         });
 
         // Message object
-        let message = {
-            from: `CuroCura.com<${process.env.EMAIL}>`,
-            to: mailTo,
-            subject: "Reset Password Detail",
-            html: `<h1>Message: ${body.message}</h1>
-                    <h2>User UniqueId: ${body.uniqueId}</h2>`
-        };
-
-        transporter.sendMail(message, (err, info) => {
+        ejs.renderFile(global.__basedir + "/public/forgotPasswordEmail.ejs", { link: body.link }, function (err, data) {
             if (err) {
-                console.log("Error occurred. " + err.message);
-                return reject({
-                    sent: false,
-                    message: err.message
+                console.log(err);
+            } else {
+                let message = {
+                    from: `CuroCura.com<${process.env.EMAIL}>`,
+                    to: mailTo,
+                    subject: "Reset Password Detail",
+                    html: data
+                };
+
+                transporter.sendMail(message, (err, info) => {
+                    if (err) {
+                        console.log("Error occurred. " + err.message);
+                        return reject({
+                            sent: false,
+                            message: err.message
+                        });
+                    }
+                    console.log("Message sent: %s", info.messageId);
+                    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+                    return resolve({
+                        sent: true,
+                        message: `mail send suessfully ${info.messageId}`
+                    });
                 });
-            }
-            console.log("Message sent: %s", info.messageId);
-            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-            return resolve({
-                sent: true,
-                message: `mail send suessfully ${info.messageId}`
-            });
-        });
+            }}
+        );
     });
 };
 

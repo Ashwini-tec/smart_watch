@@ -4,6 +4,7 @@ const mailer = require("../../utils/email");
 const referralCodeGenerator = require("referral-code-generator");
 const Organization = require("../model/organization");
 const Role = require("../model/role");
+require("dotenv").config();
 
 /********************* create  **************** */
 const create = (model) => async(req, res)=>{
@@ -122,8 +123,9 @@ const forgotPassword = (model) => async(req,res) => {
             return res.status(404).send({ data: MESSAGE.DATA_NOT_FOUND });
         }
         const random = referralCodeGenerator.alphaNumeric("uppercase", 5, 3);
+        const link = `${process.env.API_BASE_URL}/public/resetPassword?uniqueId=${random}`;
         let mail = await mailer.forgotPasssword(result.email, {
-            uniqueId: random,
+            link: link,
             message: MESSAGE.FORGOT_PASSWORD,
         });
         if(!mail.sent){

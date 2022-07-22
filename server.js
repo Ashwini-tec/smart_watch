@@ -28,9 +28,6 @@ const corsOptions = {
     optionsSuccessStatus: 204
 };
 
-//set views file
-app.set("views",path.join(global.__basedir,"/public/registerUserEmail"));
-
 //set view engine
 app.set("view engine", "ejs");
 
@@ -49,6 +46,11 @@ bootstrapData();
 
 /************* api to get logo ********/
 app.use("/public/", express.static(path.join(global.__basedir,"/public/image")));
+
+/*************** reset password template *********** */
+app.use("/public/resetPassword", (req, res)=>{
+    res.render(path.join(global.__basedir,"/public/resetPassword.ejs"),{ baseUrl: process.env.BASE_URL });
+});
 
 /***************** routes *********************/
 app.use("/api", thermometerRoutes);
