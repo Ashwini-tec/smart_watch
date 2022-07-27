@@ -6,9 +6,7 @@ info:
 
 servers:
   - url: "http://localhost:4090/api/"
-  - url: "http://167.172.220.75:4090/api"
   - url: "http://18.212.183.231:4090/api"
-  - url: "https://smart.rfid.ariantechsolutions.in/api/api/"
   - url: "https://api.curocura.com/api/"
 
 security:
@@ -16,11 +14,11 @@ security:
 
 tags:
   - name: ThermometerData
-    description: Endpoints to create and get thermometer related data
+    description: Endpoints to create and get thermometer live data
   - name: Threshold_Constant
     description: Endpoints to create and get threshold/channels related data
   - name: User
-    description: Endpoints to create and get threshold/channels user related data
+    description: Endpoints to create and get user related data
   - name: Login
     description: Endpoints to login into system
   - name: Role
@@ -28,13 +26,15 @@ tags:
   - name: Permission
     description: Endpoints to create and get permission related data
   - name: Organization
-    description: Endpoints to create and get role related data
+    description: Endpoints to create and get organization related data
   - name: Thermometer
     description: Endpoints to register and get thermometer data
   - name: Procedure
     description: Endpoints to create and get procedure related data
   - name: Patient
     description: Endpoints to create and get patient related data
+  - name: Patient_Assignee
+    description: Endpoints to create and get patient assigned related data
 
 paths:
   /temperature:
@@ -54,7 +54,7 @@ paths:
     get:
       tags:
         - ThermometerData
-      summary: get all data for thermometer
+      summary: get all live data for thermometer
       parameters:
         - in: query
           name: thermometerId
@@ -287,7 +287,7 @@ paths:
     post:
       tags:
         - Organization
-      summary: Create a data for organization constant
+      summary: Create a data for organization
       requestBody:
         content:
           application/json:
@@ -792,7 +792,7 @@ components:
       type: object
       required:
         - firstName
-        - password
+        - lastName
         - address
         - role
       properties:

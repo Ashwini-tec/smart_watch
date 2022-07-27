@@ -10,8 +10,8 @@ module.exports = {
 
     update: () =>{
         return Joi.object({
-            thermometerId: Joi.string(),
-            threshold: Joi.string(),
+            thermometerId: Joi.string().required(),
+            threshold: Joi.string().required(),
             organization: Joi.string().required(),
             isActive: Joi.boolean().required(),
         });

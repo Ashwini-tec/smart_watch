@@ -4,7 +4,7 @@ module.exports = {
     create: () =>{
         return Joi.object({
             name: Joi.string().required(),
-            mobile: Joi.string(),
+            mobile: Joi.string().required(),
             address: Joi.string().required(),
             email: Joi.string().email().required(),
             city: Joi.string().required(),
@@ -19,7 +19,7 @@ module.exports = {
     update: () =>{
         return Joi.object({
             name: Joi.string().required(),
-            mobile: Joi.string(),
+            mobile: Joi.string().required(),
             address: Joi.string().required(),
             email: Joi.string().email().required(),
             city: Joi.string().required(),

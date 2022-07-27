@@ -20,21 +20,21 @@ module.exports = {
 
     update: () =>{
         return Joi.object({
-            assignedTo: Joi.string(),
-            patient: Joi.string(),
+            assignedTo: Joi.string().required(),
+            patient: Joi.string().required(),
         });
     },
 
     updateStatus: () =>{
         return Joi.object({
-            status: Joi.boolean(),
-            comments: Joi.string(),
+            status: Joi.boolean().required(),
+            comments: Joi.string().required(),
         });
     },
 
     procedureCompleteStatus: () =>{
         return Joi.object({
-            status: Joi.boolean(),
+            status: Joi.boolean().required(),
         });
     },
 };

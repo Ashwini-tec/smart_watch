@@ -17,12 +17,12 @@ module.exports = {
 
     update: () =>{
         return Joi.object({
-            firstName: Joi.string(),
+            firstName: Joi.string().required(),
             middleName: Joi.string(),
             lastName: Joi.string(),
             mobile: Joi.string(),
             address: Joi.string(),
-            role: Joi.string(),
+            role: Joi.string().required(),
             permission:  Joi.array().items({
                 name: Joi.string().required(),
             }),
